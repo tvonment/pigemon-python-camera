@@ -3,6 +3,7 @@ from picamera import PiCamera
 from time import sleep
 import asyncio
 import time
+import os
 
 # Replace with your endpoint URL and prediction key
 ENDPOINT_URL = "https://pigemonvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/976bfd0a-30e1-48ff-b61c-ba2969826049/detect/iterations/Iteration5/image"
@@ -62,6 +63,7 @@ async def main():
                 print("Pigeon(s) recognized in the image.")
             else:
                 print("No Pigeons recognized in the image.")
+        os.remove(IMAGE_PATH)
     except Exception as e:
         print(e)
 
