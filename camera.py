@@ -3,7 +3,7 @@ from picamera import PiCamera
 from time import sleep
 
 # Replace with your endpoint URL and prediction key
-ENDPOINT_URL = "https://pigemonvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/976bfd>
+ENDPOINT_URL = "https://pigemonvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/976bfd0a-30e1-48ff-b61c-ba2969826049/detect/iterations/Iteration5/image"
 PREDICTION_KEY = "9a020bd42dbd4b70b5e6714de81544ac"
 
 # The path to the image file you want to send
