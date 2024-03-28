@@ -14,7 +14,7 @@ IMAGE_PATH = "/home/pigemon/image.jpg"
 async def capture_image(image_path):
     camera = PiCamera()
     camera.start_preview()  # Camera warm-up time
-    await camera.capture(image_path)
+    camera.capture(image_path)
     camera.stop_preview()
 
 def send_image_to_custom_vision(endpoint_url, prediction_key, image_path):
