@@ -2,6 +2,7 @@ import requests
 from picamera import PiCamera
 from time import sleep
 import asyncio
+import time
 
 # Replace with your endpoint URL and prediction key
 ENDPOINT_URL = "https://pigemonvision-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/976bfd0a-30e1-48ff-b61c-ba2969826049/detect/iterations/Iteration5/image"
