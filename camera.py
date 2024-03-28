@@ -34,30 +34,33 @@ def send_image_to_custom_vision(endpoint_url, prediction_key, image_path):
             # If not successful, raise an error with the response to help with debugging
             raise Exception(f"Request failed: {response.text}")
 
-# Call the function and print the returned results
-try:
-    start_time = time.time()
-    await capture_image(IMAGE_PATH)
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Image Capture Execution Time: {execution_time}")
-    start_time = time.time()
-    prediction_response = send_image_to_custom_vision(ENDPOINT_URL, PREDICTION_KEY, IMAGE_PATH)
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Image Recognition Execution Time: {execution_time}")
-    #print(f"Prediction Results: {prediction_response}")
-    data = prediction_response
-    if data['predictions'] == []:
-        print("Nothing recognized in the image.")
-    if data['predictions'] != []:
-        counter = 0
-        for prediction in data['predictions']:
-             if prediction['tagName'] == "columbidae" and prediction['probability'] > 0.8:
-                counter += 1
-        if counter > 0:
-             print("Pigeon(s) recognized in the image.")
-        else:
-             print("No Pigeons recognized in the image.")
-except Exception as e:
-    print(e)
+async def main():
+    # Call the function and print the returned results
+    try:
+        start_time = time.time()
+        await capture_image(IMAGE_PATH)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"Image Capture Execution Time: {execution_time}")
+        start_time = time.time()
+        prediction_response = send_image_to_custom_vision(ENDPOINT_URL, PREDICTION_KEY, IMAGE_PATH)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"Image Recognition Execution Time: {execution_time}")
+        #print(f"Prediction Results: {prediction_response}")
+        data = prediction_response
+        if data['predictions'] == []:
+            print("Nothing recognized in the image.")
+        if data['predictions'] != []:
+            counter = 0
+            for prediction in data['predictions']:
+                if prediction['tagName'] == "columbidae" and prediction['probability'] > 0.8:
+                    counter += 1
+            if counter > 0: 
+                print("Pigeon(s) recognized in the image.")
+            else:
+                print("No Pigeons recognized in the image.")
+    except Exception as e:
+        print(e)
+
+asyncio.run(main())
