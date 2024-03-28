@@ -9,10 +9,10 @@ PREDICTION_KEY = "9a020bd42dbd4b70b5e6714de81544ac"
 # The path to the image file you want to send
 IMAGE_PATH = "/home/pigemon/image.jpg"
 
-def capture_image(image_path):
+async def capture_image(image_path):
     camera = PiCamera()
     camera.start_preview()  # Camera warm-up time
-    camera.capture(image_path)
+    await camera.capture(image_path)
     camera.stop_preview()
 
 def send_image_to_custom_vision(endpoint_url, prediction_key, image_path):
@@ -36,9 +36,16 @@ def send_image_to_custom_vision(endpoint_url, prediction_key, image_path):
 
 # Call the function and print the returned results
 try:
-    capture_image(IMAGE_PATH)
-    print("Image taken")
+    start_time = time.time()
+    await capture_image(IMAGE_PATH)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Image Capture Execution Time: {execution_time}")
+    start_time = time.time()
     prediction_response = send_image_to_custom_vision(ENDPOINT_URL, PREDICTION_KEY, IMAGE_PATH)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Image Recognition Execution Time: {execution_time}")
     #print(f"Prediction Results: {prediction_response}")
     data = prediction_response
     if data['predictions'] == []:
